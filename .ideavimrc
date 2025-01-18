@@ -1,0 +1,83 @@
+"" Source your .vimrc
+"source ~/.vimrc
+
+"" -- Suggested options --
+" Show a few lines of context around the cursor. Note that this makes the
+" text scroll if you mouse-click near the start or end of the window.
+
+" Do incremental searching.
+set incsearch
+
+" Don't use Ex mode, use Q for formatting.
+map Q gq
+
+
+"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
+"" Map \r to the Reformat Code action
+"map \r <Action>(ReformatCode)
+
+"" Map <leader>d to start debug
+"map <leader>d <Action>(Debug)
+
+"" Map \b to toggle the breakpoint on the current line
+"map \b <Action>(ToggleLineBreakpoint)
+
+
+" Find more examples here: https://jb.gg/share-ideavimrc
+Plug 'easymotion/vim-easymotion'
+Plug 'machakann/vim-highlightedyank'
+let mapleader = " "
+let g:highlightedyank_highlight_duration = "200"
+let g:highlightedyank_highlight_color = "rgba(160, 160, 160, 155)"
+set highlightedyank
+set easymotion
+set surround
+
+set scrolloff=8
+set showmode=true
+set ideajoin
+set tabstop=2
+set shiftwidth=2
+set clipboard=unnamedplus
+set clipboard^=ideaput
+
+
+if has('ide')
+  " mappings and options that exist only in IdeaVim
+
+  " Use ctrl-c as an ide shortcut in normal and visual modes
+  sethandler <C-C> n:ide v-x-i:vim
+  sethandler <C-g> n-v:vim i:ide
+  sethandler <A-c> x-v:vim n:ide
+  sethandler <C-j> n:vim v-x-i:ide
+
+  map <leader>w <Action>(SaveAll)
+  map <leader>f <Action>(GotoFile)
+  map <leader>b <Action>(Switcher)
+  imap jk <ESC>
+  nmap <leader>lf <Action>(ReformatCode)
+
+  nmap <A-S-j> <Action>(MoveLineDown)
+  vmap <A-S-j> <Action>(MoveLineDown)
+  vmap <A-S-k> <Action>(MoveLineUp)
+  nmap <A-S-k> <Action>(MoveLineUp)
+
+  nmap gr <Action>(FindUsages)
+  nmap gh <Action>(ShowErrorDescription)
+  nmap <leader>lr <Action>(RenameElement)
+  nmap gi <Action>(GotoImplementation)
+
+  " P pastes without overwriting the register.
+  xnoremap p pgvy
+
+  " Stay in indent mode
+  vmap < <gv
+  vmap > >gv
+
+  " Break line in normal mode
+  nmap gj i<CR><ESC>
+
+  map <leader>J <Plug>(easymotion-f)
+  map <leader>j <Plug>(easymotion-s)
+
+end

@@ -1,0 +1,9 @@
+set clipboard=unnamedplus
+
+let mapleader = " "
+
+inoremap jk <Esc>
+nnoremap <leader>w :w<CR>
+
+nnoremap gr :vsc Edit.FindAllReferences<cr>
+ 
